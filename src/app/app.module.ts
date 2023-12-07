@@ -16,7 +16,9 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { ColorPickerModule } from 'ngx-color-picker';
+
+
 registerLocaleData(en);
 
 @NgModule({
@@ -36,7 +38,8 @@ registerLocaleData(en);
     NzButtonModule,
     NzPopoverModule,
     NzInputModule,
-    NgxMatColorPickerModule,
+    ColorPickerModule
+    
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

@@ -92,25 +92,18 @@
             <a (click)="handleDeleteButton(btn.id)">Xóa</a>
           </ng-template>
         </button> -->
-        <button 
-          *ngFor="let btn of buttons"
-          class="example-btn"
-          cdkDrag cdkDragBoundary=".example-boundary" 
-          [class]="{
+        <button *ngFor="let btn of buttons" class="example-btn" cdkDrag cdkDragBoundary=".example-boundary" [class]="{
             'zom-effect': btn.effect === 'zom',
             'opacity-effect': btn.effect === 'opacity', 
             'changeColor-effect': btn.effect === 'changeBackground', 
             'shadow-effect': btn.effect === 'shadow', 
             'slider-effect': btn.effect === 'slider'
-          }" 
-          [style.background-color]="btn.color" 
-          [cdkDragFreeDragPosition]="btn.position"
+          }" [style.background-color]="btn.color" [cdkDragFreeDragPosition]="btn.position"
           (cdkDragEnded)="dragEnded($event, btn)" nz-popover nzPopoverTitle="button" [(nzPopoverVisible)]="btn.visible"
           (click)="selectButton(btn)" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click"
-          [class.link-btn]="btn.type !== 'primary'" 
-          [nzPopoverContent]="contentTemplate">
+          [class.link-btn]="btn.type !== 'primary'" [nzPopoverContent]="contentTemplate">
           <div class="slider-content">{{btn.text}}</div>
-          
+
           <ng-template #contentTemplate>
             <a (click)="handleDeleteButton(btn.id)">Xóa</a>
           </ng-template>
@@ -120,7 +113,7 @@
       </div>
     </nz-content>
   </nz-layout>
-  <nz-sider class="menu-sidebar overflow-scroll" nzCollapsible nzWidth="256px" nzBreakpoint="md"
+  <nz-sider class="menu-sidebar " nzCollapsible nzWidth="256px" nzBreakpoint="md"
     [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
@@ -190,6 +183,14 @@
             style="background-color: rgb(210, 218, 255);">
           <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(238, 241, 255)')" readonly
             style="background-color: rgb(238, 241, 255);">
+
+
+          <div class="flex ">
+            <div class="chooseColor-label">Chọn màu</div>
+            <div class="chooseColor-input">
+              <input [style.background]="color" [colorPicker]="color" (colorPickerChange)="handleChangeColor($event)" class=""/>
+            </div>
+          </div>
         </div>
 
       </li>
@@ -211,7 +212,8 @@
             <li class="flex gap-8">
               <button nz-button nzType="primary" class="effect shadow-effect" (click)="handleChangeEffect('shadow')">Tạo
                 bóng</button>
-              <button nz-button nzType="primary" class="effect slider-effect px-10 py-5" (click)="handleChangeEffect('slider')">
+              <button nz-button nzType="primary" class="effect slider-effect px-10 py-5"
+                (click)="handleChangeEffect('slider')">
                 <div class="slider-content">Thanh trượt</div>
               </button>
             </li>
@@ -235,6 +237,7 @@
         </div>
 
       </li>
+      
     </ul>
   </nz-sider>
 </nz-layout>

@@ -165,7 +165,8 @@ nz-content {
 }
 
 .overflow-scroll {
-  overflow-y: scroll;
+  /* overflow: initial; */
+  overflow: scroll;
 }
 
 .flex {
@@ -311,4 +312,21 @@ nz-content {
 .py-5 {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.chooseColor-label {
+  padding: 15px 10px;
+  width: 40%;
+}
+
+.chooseColor-input {
+  width: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chooseColor-input input {
+  width: 100%;
 }

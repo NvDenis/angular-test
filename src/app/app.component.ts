@@ -26,6 +26,7 @@ export class AppComponent {
   selectedButtonText: string = ''; // Biến để lưu giữ nội dung của button được chọn
   selectedButton: IButton | undefined
   selectedButtonColor: string = ''
+  color: string = '';
 
   ngOnInit(): void {
 
@@ -37,6 +38,7 @@ export class AppComponent {
     this.selectedButton = btn;
     this.selectedButtonText = btn.text;
     this.selectedButtonColor = btn.color;
+    this.color = btn.color
   }
 
   handleChangeEffect(effect:string): void {
@@ -49,6 +51,7 @@ export class AppComponent {
   handleChangeColor(color: string ): void {
     if (this.selectedButton) {
       this.selectedButton.color = color;
+
       localStorage.setItem('buttons', JSON.stringify(this.buttons));
     }
   }
@@ -92,7 +95,6 @@ export class AppComponent {
   }
 
   change(value: boolean): void {
-    console.log(value);
   }
 
   dragEnded(event: CdkDragEnd, button: IButton): void {
@@ -109,7 +111,6 @@ export class AppComponent {
     localStorage.setItem('buttons', JSON.stringify(updatedButtons));
 
   }
-
 
 
 
