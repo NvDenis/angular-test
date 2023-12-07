@@ -9,6 +9,7 @@ interface IButton {
   color: string,
   position: { x: number, y: number },
   visible: boolean,
+  effect: string,
 }
 
 @Component({
@@ -38,6 +39,13 @@ export class AppComponent {
     this.selectedButtonColor = btn.color;
   }
 
+  handleChangeEffect(effect:string): void {
+    if (this.selectedButton) {
+      this.selectedButton.effect = effect;
+      localStorage.setItem('buttons', JSON.stringify(this.buttons));
+    }
+  }
+
   handleChangeColor(color: string ): void {
     if (this.selectedButton) {
       this.selectedButton.color = color;
@@ -60,6 +68,7 @@ export class AppComponent {
       color: buttonData.color,
       position: { x: this.buttons.length * 10, y: this.buttons.length * 10 },
       visible: false,
+      effect: 'default'
     };
 
     this.buttons.push(newButton);
@@ -81,12 +90,6 @@ export class AppComponent {
       localStorage.setItem('buttons', JSON.stringify(this.buttons));
     }
   }
-
-  // Sử dụng trackBy để chỉ định cách xác định mỗi phần tử trong danh sách
-  trackByButtonId(index: number, button: IButton): string {
-    return button.id;
-  }
-
 
   change(value: boolean): void {
     console.log(value);

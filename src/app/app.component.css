@@ -13,7 +13,7 @@
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  box-shadow: 2px 0 6px rgba(0,21,41,.35);
+  box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
 }
 
 .header-trigger {
@@ -21,7 +21,7 @@
   padding: 20px 24px;
   font-size: 20px;
   cursor: pointer;
-  transition: all .3s,padding 0s;
+  transition: all .3s, padding 0s;
 }
 
 .trigger:hover {
@@ -51,7 +51,7 @@
   color: #fff;
   font-weight: 600;
   font-size: 14px;
-  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
   vertical-align: middle;
 }
 
@@ -66,7 +66,7 @@ nz-header {
   height: 64px;
   padding: 0;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
 }
 
 nz-content {
@@ -90,20 +90,24 @@ nz-content {
 .custom-list-item {
   display: flex;
   align-items: center;
-  margin-bottom: 10px; /* Khoảng cách giữa mỗi mục trong danh sách */
+  margin-bottom: 10px;
+  /* Khoảng cách giữa mỗi mục trong danh sách */
 }
 
 .custom-list-item button {
-  width: 50px; /* Chiều rộng của nút */
-  margin-right: 6px; /* Khoảng cách giữa nút và chữ */
+  width: 50px;
+  /* Chiều rộng của nút */
+  margin-right: 6px;
+  /* Khoảng cách giữa nút và chữ */
 }
 
 .custom-list-item span {
-  margin-left: 6px; /* Khoảng cách giữa nút và chữ */
+  margin-left: 6px;
+  /* Khoảng cách giữa nút và chữ */
 }
 
 .custom-list-item a {
-  color: #1890ff ;
+  color: #1890ff;
 }
 
 
@@ -114,15 +118,12 @@ nz-content {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  position: relative; /* Cần thiết để tạo hệ thống tọa độ tương đối */
+  position: relative;
+  /* Cần thiết để tạo hệ thống tọa độ tương đối */
 }
 
 
-.example-box:active {
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-              0 8px 10px 1px rgba(0, 0, 0, 0.14),
-              0 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
+
 
 .example-boundary {
   height: 400px;
@@ -130,10 +131,6 @@ nz-content {
   border: dotted #ccc 2px;
 }
 
-.example-box {
-  transition: all 0s;
-  position: absolute;
-}
 
 .content-btn {
   padding-left: 25px;
@@ -144,16 +141,16 @@ nz-content {
 }
 
 .link-btn {
-  background: none;
+  background: white;
   border: none;
-  color: #1890ff;
+  color: #1890ff!important;
 }
 
 .cycle-color {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 5px;
+  margin-right: 3px;
   margin-bottom: 5px;
 }
 
@@ -165,4 +162,153 @@ nz-content {
 .cycle-color:focus {
   border: 3px solid #40a9ff;
   outline: none;
+}
+
+.overflow-scroll {
+  overflow-y: scroll;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-8 {
+  gap: 1.25rem;
+}
+
+.effect {
+  width: 90px;
+  margin-bottom: 10px;
+  background-color: #e5e5e5;
+  color: black;
+  border: none;
+  outline: none;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+.effect::placeholder {
+  color: black;
+}
+
+.effect:focus {
+  outline: 3px solid #40a9ff;
+}
+
+.zom-effect {
+  position: relative;
+}
+
+.zom-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Đặt z-index thấp hơn để pseudo-element nằm dưới */
+  background-color: inherit;
+  transform-origin: center center;
+  transform: scale(1);
+  transition: transform 0.3s ease-out; /* Thêm transition để tạo hiệu ứng mượt mà */
+}
+
+
+
+.zom-effect:hover::before {
+  /* scale: 1.4; */
+  transform: scale(1.2);
+}
+
+
+
+.opacity-effect:hover {
+  opacity: 0.3;
+}
+
+.example-btn {
+  position: absolute;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  transition: all 0s;
+  padding: 7px 14px;
+}
+
+.example-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Đặt z-index thấp hơn để pseudo-element nằm dưới */
+  background-color: inherit;
+  transform-origin: center center;
+  transform: scale(1);
+  transition: transform 0.3s ease-out; /* Thêm transition để tạo hiệu ứng mượt mà */
+}
+
+.changeColor-effect:hover {
+  background: green!important;
+}
+
+.shadow-effect:hover {
+  /* box-shadow: 0 0 20px rgba(64, 169, 255, 0.8);  */
+  box-shadow: 0 0 20px #40a9ff;
+}
+
+.slider-effect {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  text-decoration: none;
+  z-index: 2;
+}
+
+.slider-content {
+  position: relative;
+  z-index: 3;
+}
+
+.slider-effect::before,
+.slider-effect::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 50%;
+  z-index: 2;
+  background: green;
+  transition: width .5s;
+  opacity: 1;
+}
+
+.slider-effect::before {
+  top: 0;
+  left: 0;
+}
+
+.slider-effect::after {
+  bottom: 0;
+  right: 0;
+}
+
+.slider-effect:hover::before,
+.slider-effect:hover::after {
+  width: 100%;
+}
+
+.px-10 {
+  padding-left: 10px;
+  padding-right: 10px;
+} 
+.py-5 {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

@@ -16,17 +16,17 @@
           <li nz-submenu nzOpen nzTitle="Nút điều hướng" nzIcon="dashboard">
             <ul>
               <li nz-menu-item nzMatchRouter class="custom-list-item"
-                (click)="handleAddButton({ type: 'link', text: 'link', color: 'blue', position: {x: 0, y: 0}, visible: false})">
+                (click)="handleAddButton({ type: 'link', text: 'link', color: 'none', position: {x: 0, y: 0}, visible: false})">
                 <a nz-button nzType="link">Link </a>
                 <span>Link</span>
               </li>
               <li nz-menu-item nzMatchRouter class="custom-list-item"
-                (click)="handleAddButton({ type: 'primary', text: 'oke', color: 'blue', position: {x: 0, y: 0}, visible: false})">
+                (click)="handleAddButton({ type: 'primary', text: 'oke', color: '#40a9ff', position: {x: 0, y: 0}, visible: false})">
                 <button nz-button nzType="primary">Ok</button>
                 <span>Ok</span>
               </li>
               <li nz-menu-item nzMatchRouter class="custom-list-item"
-                (click)="handleAddButton({ type: 'primary', text: '$', color: 'blue', position: {x: 0, y: 0}, visible: false})">
+                (click)="handleAddButton({ type: 'primary', text: '$', color: '#40a9ff', position: {x: 0, y: 0}, visible: false})">
                 <button nz-button nzType="primary">$</button>
                 <span>Payment</span>
               </li>
@@ -60,37 +60,68 @@
     <nz-content>
       <div class="inner-content example-boundary">
 
-        <button 
-          *ngFor="let btn of buttons; trackBy: trackByButtonId" 
-          nz-button nzType="primary" 
+        <!-- <button 
+          *ngFor="let btn of buttons" 
+          nz-button 
+          nzType="primary" 
           cdkDrag
           cdkDragBoundary=".example-boundary" 
-          class="example-box" 
+          class="example-box " 
           [class.link-btn]="btn.type !== 'primary'"
-          [style.background-color]="btn.color"
-          [cdkDragDisabled]="false"
-          [cdkDragFreeDragPosition]="btn.position" 
+          [class]=
+          "{
+            'zom-effect': btn.effect === 'zom', 
+            'opacity-effect': btn.effect === 'opacity', 
+            'changeColor-effect': btn.effect === 'changeBackground', 
+            'shadow-effect': btn.effect === 'shadow', 
+            'slider-effect': btn.effect === 'slider'
+          }"
+          [style.background-color]="btn.color" 
+          [cdkDragDisabled]="false" 
+          [cdkDragFreeDragPosition]="btn.position"
           (cdkDragEnded)="dragEnded($event, btn)" 
-          nz-popover
+          nz-popover 
           nzPopoverTitle="button" 
           [(nzPopoverVisible)]="btn.visible"
-          (click)="selectButton(btn)"
-          (nzPopoverVisibleChange)="change($event)"
-          nzPopoverTrigger="click" 
+          (click)="selectButton(btn)" 
+          (nzPopoverVisibleChange)="change($event)" 
+          nzPopoverTrigger="click"
           [nzPopoverContent]="contentTemplate">
           {{btn.text}}
+          <ng-template #contentTemplate>
+            <a (click)="handleDeleteButton(btn.id)">Xóa</a>
+          </ng-template>
+        </button> -->
+        <button 
+          *ngFor="let btn of buttons"
+          class="example-btn"
+          cdkDrag cdkDragBoundary=".example-boundary" 
+          [class]="{
+            'zom-effect': btn.effect === 'zom',
+            'opacity-effect': btn.effect === 'opacity', 
+            'changeColor-effect': btn.effect === 'changeBackground', 
+            'shadow-effect': btn.effect === 'shadow', 
+            'slider-effect': btn.effect === 'slider'
+          }" 
+          [style.background-color]="btn.color" 
+          [cdkDragFreeDragPosition]="btn.position"
+          (cdkDragEnded)="dragEnded($event, btn)" nz-popover nzPopoverTitle="button" [(nzPopoverVisible)]="btn.visible"
+          (click)="selectButton(btn)" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click"
+          [class.link-btn]="btn.type !== 'primary'" 
+          [nzPopoverContent]="contentTemplate">
+          <div class="slider-content">{{btn.text}}</div>
+          
           <ng-template #contentTemplate>
             <a (click)="handleDeleteButton(btn.id)">Xóa</a>
           </ng-template>
         </button>
 
 
-
       </div>
     </nz-content>
   </nz-layout>
-  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null">
+  <nz-sider class="menu-sidebar overflow-scroll" nzCollapsible nzWidth="256px" nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
@@ -101,43 +132,106 @@
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="Định dạng tên nút" nzIcon="dashboard">
         <div class="content-btn">
-          <p><label >Nội dung:</label></p>
-          <textarea nz-input 
-            [nzAutosize]="{ minRows: 2, maxRows: 6 }"
-            [value]="selectedButtonText"
-            [(ngModel)]="selectedButtonText"
-            (input)="updateSelectedButton()"
-            >
+          <p><label>Nội dung:</label></p>
+          <textarea nz-input [nzAutosize]="{ minRows: 2, maxRows: 6 }" [value]="selectedButtonText"
+            [(ngModel)]="selectedButtonText" (input)="updateSelectedButton()">
           </textarea>
         </div>
       </li>
       <li nz-submenu nzOpen nzTitle="Màu sắc" nzIcon="form">
         <div class="content-btn">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(57, 54, 70)')" readonly style="background-color: rgb(57, 54, 70);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(79, 69, 87)')" readonly style="background-color: rgb(79, 69, 87);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(109, 93, 110)')" readonly style="background-color: rgb(109, 93, 110);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(244, 238, 224)')" readonly style="background-color: rgb(244, 238, 224);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(176, 164, 164)')" readonly style="background-color: rgb(176, 164, 164);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 251, 235)')" readonly style="background-color: rgb(255, 251, 235);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 231, 204)')" readonly style="background-color: rgb(255, 231, 204);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(248, 203, 166)')" readonly style="background-color: rgb(248, 203, 166);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 89, 123)')" readonly style="background-color: rgb(255, 89, 123);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 142, 158)')" readonly style="background-color: rgb(255, 142, 158);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(249, 181, 208)')" readonly style="background-color: rgb(249, 181, 208);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(238, 238, 238)')" readonly style="background-color: rgb(238, 238, 238);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(226, 106, 44)')" readonly style="background-color: rgb(226, 106, 44);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 130, 67)')" readonly style="background-color: rgb(255, 130, 67);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(253, 166, 93)')" readonly style="background-color: rgb(253, 166, 93);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 208, 127)')" readonly style="background-color: rgb(255, 208, 127);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(240, 255, 66)')" readonly style="background-color: rgb(240, 255, 66);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(130, 205, 71)')" readonly style="background-color: rgb(130, 205, 71);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(84, 180, 53)')" readonly style="background-color: rgb(84, 180, 53);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(55, 146, 55)')" readonly style="background-color: rgb(55, 146, 55);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(64 169 255)')" readonly style="background-color: rgb(64 169 255);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(177, 178, 255)')" readonly style="background-color: rgb(177, 178, 255);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(170, 196, 255)')" readonly style="background-color: rgb(170, 196, 255);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(210, 218, 255)')" readonly style="background-color: rgb(210, 218, 255);">
-          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(238, 241, 255)')" readonly style="background-color: rgb(238, 241, 255);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(57, 54, 70)')" readonly
+            style="background-color: rgb(57, 54, 70);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(79, 69, 87)')" readonly
+            style="background-color: rgb(79, 69, 87);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(109, 93, 110)')" readonly
+            style="background-color: rgb(109, 93, 110);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(244, 238, 224)')" readonly
+            style="background-color: rgb(244, 238, 224);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(176, 164, 164)')" readonly
+            style="background-color: rgb(176, 164, 164);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 251, 235)')" readonly
+            style="background-color: rgb(255, 251, 235);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 231, 204)')" readonly
+            style="background-color: rgb(255, 231, 204);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(248, 203, 166)')" readonly
+            style="background-color: rgb(248, 203, 166);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 89, 123)')" readonly
+            style="background-color: rgb(255, 89, 123);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 142, 158)')" readonly
+            style="background-color: rgb(255, 142, 158);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(249, 181, 208)')" readonly
+            style="background-color: rgb(249, 181, 208);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(238, 238, 238)')" readonly
+            style="background-color: rgb(238, 238, 238);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(226, 106, 44)')" readonly
+            style="background-color: rgb(226, 106, 44);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 130, 67)')" readonly
+            style="background-color: rgb(255, 130, 67);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(253, 166, 93)')" readonly
+            style="background-color: rgb(253, 166, 93);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(255, 208, 127)')" readonly
+            style="background-color: rgb(255, 208, 127);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(240, 255, 66)')" readonly
+            style="background-color: rgb(240, 255, 66);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(130, 205, 71)')" readonly
+            style="background-color: rgb(130, 205, 71);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(84, 180, 53)')" readonly
+            style="background-color: rgb(84, 180, 53);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(55, 146, 55)')" readonly
+            style="background-color: rgb(55, 146, 55);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(64 169 255)')" readonly
+            style="background-color: rgb(64 169 255);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(177, 178, 255)')" readonly
+            style="background-color: rgb(177, 178, 255);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(170, 196, 255)')" readonly
+            style="background-color: rgb(170, 196, 255);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(210, 218, 255)')" readonly
+            style="background-color: rgb(210, 218, 255);">
+          <input type="text" class="cycle-color" (click)="handleChangeColor('rgb(238, 241, 255)')" readonly
+            style="background-color: rgb(238, 241, 255);">
+        </div>
+
+      </li>
+      <li nz-submenu nzOpen nzTitle="Hiệu ứng khi rê chuột" nzIcon="form">
+        <div class="content-btn">
+          <ul>
+            <li class="flex gap-8">
+              <button nz-button nzType="primary" class="effect" autofocus (click)="handleChangeEffect('default')">Mặc
+                định</button>
+              <button nz-button nzType="primary" class="effect zom-effect" (click)="handleChangeEffect('zom')">Phóng
+                to</button>
+            </li>
+            <li class="flex gap-8">
+              <button nz-button nzType="primary" class="effect opacity-effect"
+                (click)="handleChangeEffect('opacity')">Làm mờ</button>
+              <button nz-button nzType="primary" class="effect changeColor-effect"
+                (click)="handleChangeEffect('changeBackground')">Đổi màu</button>
+            </li>
+            <li class="flex gap-8">
+              <button nz-button nzType="primary" class="effect shadow-effect" (click)="handleChangeEffect('shadow')">Tạo
+                bóng</button>
+              <button nz-button nzType="primary" class="effect slider-effect px-10 py-5" (click)="handleChangeEffect('slider')">
+                <div class="slider-content">Thanh trượt</div>
+              </button>
+            </li>
+
+            <!-- <li class="flex gap-8">
+              <input nz-button nzType="primary" readonly  class="effect" placeholder="Mặc định"/>
+              <input nz-button nzType="primary" readonly class="effect zom-effect" placeholder="Phóng to"/>
+            </li>
+            <li class="flex gap-8">
+              <input nz-button nzType="primary" readonly class="effect opacity-effect" placeholder="Làm mờ"/>
+              <input nz-button nzType="primary" readonly class="effect changeColor-effect" placeholder="Đổi màu"/>
+            </li>
+            <li class="flex gap-8">
+              <input nz-button nzType="primary" readonly class="effect shadow-effect" placeholder="Tạo bóng"/>
+              <div class="effect slider-effect">
+                <input nz-button nzType="primary" readonly class="slider-content" placeholder="Thanh trượt"/>
+              </div>
+            </li> -->
+
+          </ul>
         </div>
 
       </li>
